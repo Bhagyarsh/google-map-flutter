@@ -1,1 +1,1 @@
-web: gunicorn gmap.wsgi --log-file -
+web:gunicorn gmap.wsgi 
