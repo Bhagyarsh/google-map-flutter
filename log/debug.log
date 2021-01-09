@@ -1,0 +1,158 @@
+(0.000) SELECT "accounts_user"."id", "accounts_user"."password", "accounts_user"."last_login", "accounts_user"."username", "accounts_user"."firstname", "accounts_user"."lastname", "accounts_user"."Verified", "accounts_user"."active", "accounts_user"."staff", "accounts_user"."admin", "accounts_user"."timestamp" FROM "accounts_user" WHERE "accounts_user"."username" = 'bhagyarsh'; args=('bhagyarsh',)
+Exception while resolving variable 'hide_label' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+KeyError: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [hide_label] in {'base_template': 'input.html', 'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7f1936de2370>}
+Exception while resolving variable 'placeholder' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+KeyError: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [placeholder] in {'base_template': 'input.html', 'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7f1936de2370>}
+Exception while resolving variable 'autofocus' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+KeyError: 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [autofocus] in {'base_template': 'input.html', 'input_type': 'text', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7f1936de2370>}
+Exception while resolving variable 'hide_label' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+KeyError: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'hide_label'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [hide_label] in {'base_template': 'input.html', 'input_type': 'password', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7f1936de2370>}
+Exception while resolving variable 'placeholder' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+KeyError: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'placeholder'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [placeholder] in {'base_template': 'input.html', 'input_type': 'password', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7f1936de2370>}
+Exception while resolving variable 'autofocus' in template 'rest_framework/horizontal/input.html'.
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 829, in _resolve_lookup
+    current = current[bit]
+KeyError: 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 837, in _resolve_lookup
+    current = getattr(current, bit)
+AttributeError: 'dict' object has no attribute 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 843, in _resolve_lookup
+    current = current[int(bit)]
+ValueError: invalid literal for int() with base 10: 'autofocus'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/bhagyarsh/.local/lib/python3.8/site-packages/django/template/base.py", line 848, in _resolve_lookup
+    raise VariableDoesNotExist("Failed lookup for key "
+django.template.base.VariableDoesNotExist: Failed lookup for key [autofocus] in {'base_template': 'input.html', 'input_type': 'password', 'template_pack': 'rest_framework/horizontal', 'renderer': <rest_framework.renderers.HTMLFormRenderer object at 0x7f1936de2370>}
+"POST /api/user HTTP/1.1" 200 12346

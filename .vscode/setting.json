@@ -1,0 +1,13 @@
+{
+    "python.autoComplete.extraPaths": [
+    
+    ],
+    "python.terminal.launchArgs": [
+    
+    ],
+    "python.linting.pylintArgs": [
+        "--disable=C0111",
+        "--load-plugins",
+        "pylint_django"
+    ]
+}
