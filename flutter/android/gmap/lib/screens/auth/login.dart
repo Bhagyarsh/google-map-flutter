@@ -50,8 +50,8 @@ Future _saveuserinfologin(model) async {
 
 class _LoginPageState extends State<LoginPage> {
   bool _vaildlogin = false;
-  // String url = "http://10.0.2.2:8000/api/user";
-  String url = "http://192.168.1.103:8000/api/user";
+  String url = "http://10.0.2.2:8000/api/user";
+  // String url = "https://gmaptest.herokuapp.com/api/user";
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   Map data;
   Future<UserAuth> login(BuildContext context, String url, dynamic data) async {
@@ -138,10 +138,10 @@ class _LoginPageState extends State<LoginPage> {
           login(context, url, {
             "username": username.text.trim(),
             "password": password.text.trim()
-          }).then((value) {
+          }).then((value) async {
             print(value);
             if (value.token != null) {
-              userauth.login();
+              await userauth.login();
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                 builder: (BuildContext context) => ChangeNotifierProvider(
                   create: (context) => LocationProvider(),

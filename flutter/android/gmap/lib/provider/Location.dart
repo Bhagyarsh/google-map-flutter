@@ -1,10 +1,10 @@
 import 'package:gmap/models/serachLoaction.dart';
 
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 
 class LocationProvider with ChangeNotifier {
-  LatLng center = LatLng(19.0, 73.0);
+
   String kGoogleApiKey = "AIzaSyAoaZYHwECCzM7vqcAZYPiQCYhIO2M9RrM";
   // ignore: unused_field
   CustomLocation _curretLocation;

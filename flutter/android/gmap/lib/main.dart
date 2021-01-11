@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: ChangeNotifierProvider(
+        
           create: (_) => AuthProvider(),
           child: SplashScreen(),
         ));

@@ -27,6 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 builder: (BuildContext context) =>
                     ChangeNotifierProvider<AuthProvider>.value(
                       value: userauth,
+                     
                       child: LoginPage(),
                     ))));
       } else {

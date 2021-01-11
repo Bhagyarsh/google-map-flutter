@@ -25,6 +25,39 @@ class _PickupLocationState extends State<PickupLocation> {
   Widget build(BuildContext context) {
     final locationProvider =
         Provider.of<LocationProvider>(context, listen: true);
+    _setPickupLocation(String name, LatLng postion, bool changemarker) {
+      if (allMarker.length == 2) {
+        setState(() {
+          allMarker.removeLast();
+        });
+      }
+      locationProvider
+          .setPickupLocation(CustomLocation(name: name, coordinate: postion));
+      if (changemarker) {
+        BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(40, 40)),
+                "assets/icons/pickupmarker.png")
+            .then((pickupicon) {
+          setState(() {
+            allMarker.add(
+              Marker(
+                alpha: 1,
+                icon: pickupicon,
+                markerId: MarkerId("pickup_location"),
+                draggable: true,
+                onDragEnd: (newPickupLocation) {
+                  locationProvider.setPickupLocation(CustomLocation(
+                      name: "Picup Location", coordinate: newPickupLocation));
+                },
+                onTap: () {},
+                position: locationProvider.getPickupLocation().coordinate,
+                infoWindow: InfoWindow(title: "Pickup location"),
+              ),
+            );
+          });
+        });
+      }
+    }
+
     Completer<GoogleMapController> _controller = Completer();
 
     Future<void> _goToLocation(LatLng target) async {
@@ -85,56 +118,12 @@ class _PickupLocationState extends State<PickupLocation> {
                       print("name " + location[0]);
                       print(location[1]);
                       print(location[2]);
-
-                      locationProvider.setPickupLocation(CustomLocation(
-                          coordinate: LatLng(
-                            double.parse(location[1]),
-                            double.parse(location[2]),
-                          ),
-                          name: location[0]));
-
-                      _goToLocation(
-                        LatLng(
-                          double.parse(location[1]),
-                          double.parse(location[2]),
-                        ),
+                      LatLng _pickup = LatLng(
+                        double.parse(location[1]),
+                        double.parse(location[2]),
                       );
-
-                      if (allMarker.length == 2) {
-                        print(allMarker[1].markerId);
-                        setState(() {
-                          allMarker.removeLast();
-                        });
-                      }
-
-                      setState(() {
-                        BitmapDescriptor.fromAssetImage(
-                                ImageConfiguration(size: Size(40, 40)),
-                                "assets/icons/pickupmarker.png")
-                            .then((pickupicon) {
-                          allMarker.add(
-                            Marker(
-                              alpha: 1,
-                              icon: pickupicon,
-                              markerId: MarkerId("pickup_location"),
-                              draggable: true,
-                              onDragEnd: (newPickupLocation) {
-                                setState(() {
-                                  locationProvider.setPickupLocation(
-                                      CustomLocation(
-                                          name: "Picup Location",
-                                          coordinate: newPickupLocation));
-                                });
-                              },
-                              onTap: () {},
-                              position: locationProvider
-                                  .getPickupLocation()
-                                  .coordinate,
-                              infoWindow: InfoWindow(title: "Pickup location"),
-                            ),
-                          );
-                        });
-                      });
+                      _goToLocation(_pickup);
+                      _setPickupLocation("pick up location", _pickup, true);
                     }
                   });
                 })
@@ -181,16 +170,43 @@ class _PickupLocationState extends State<PickupLocation> {
   }
 
   Future<Position> _getLocation() async {
-    var currentLocation;
-    try {
-      currentLocation = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.best);
-    } catch (e) {
-      currentLocation = null;
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
     }
-    return currentLocation;
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permantly denied, we cannot request permissions.');
+    }
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission != LocationPermission.whileInUse &&
+          permission != LocationPermission.always) {
+        return Future.error(
+            'Location permissions are denied (actual value: $permission).');
+      }
+    }
+
+    return await Geolocator.getCurrentPosition();
   }
 }
+//   Future<Position> _getLocation() async {
+//     var currentLocation;
+//     try {
+//       currentLocation = await Geolocator.getCurrentPosition(
+//           desiredAccuracy: LocationAccuracy.best);
+//     } catch (e) {
+//       currentLocation = null;
+//     }
+//     return currentLocation;
+//   }
+// }
 
 class PickupLoactionSearch extends SearchDelegate<String> {
   CustomLocation pickup;

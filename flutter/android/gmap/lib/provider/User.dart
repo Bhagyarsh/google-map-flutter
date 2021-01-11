@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class AuthProvider with ChangeNotifier {
   UserAuth _user = UserAuth();
   // final String _verifyToken = "http://10.0.2.2:8000/api/user/verify";
-  final String _verifyToken = "http://192.168.1.103:8000/api/user/verify";
+  final String _verifyToken = "https://gmaptest.herokuapp.com/api/user/verify";
   bool _verifyedToken = false;
   int _inticall = 0;
   bool trytoverify = false;
@@ -33,10 +33,9 @@ class AuthProvider with ChangeNotifier {
     return _user.token;
   }
 
-  void login() async {
+  Future login() async {
     this._user = await _getUserAuthFromSharedPreferences();
     this.isLogin = true;
-    notifyListeners();
   }
 
   void logout() async {
@@ -91,6 +90,7 @@ Future _setSharedPreNull() async {
 
 Future<UserAuth> _getUserAuthFromSharedPreferences() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  print("Instance got");
   final String token = prefs.getString('token') ?? '';
   final String user = prefs.getString("user") ?? '';
   final String fullname = prefs.getString("fullname") ?? '';

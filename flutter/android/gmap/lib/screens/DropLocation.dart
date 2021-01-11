@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gmap/provider/Location.dart';
@@ -13,7 +15,7 @@ class DropLocation extends StatefulWidget {
 }
 
 class _DropLocationState extends State<DropLocation> {
-  Set<Marker> allMarker = Set();
+  List<Marker> allMarker = [];
   List<Polyline> _polyLine = [];
   bool _dropDownDisable;
   @override
@@ -26,11 +28,50 @@ class _DropLocationState extends State<DropLocation> {
   Widget build(BuildContext context) {
     final locationProvider =
         Provider.of<LocationProvider>(context, listen: true);
-    GoogleMapController mapController;
+    Completer<GoogleMapController> _controller = Completer();
 
-    void _onMapCreated(GoogleMapController controller) {
-      mapController = controller;
+    Future<void> _goToLocation(LatLng target) async {
+      final GoogleMapController controller = await _controller.future;
+
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: target, zoom: 14.0),
+      ));
     }
+
+    void _setDropLocation(String name, LatLng postion, bool changemarker) {
+      if (allMarker.length == 3) {
+        setState(() {
+          allMarker.removeLast();
+        });
+      }
+      locationProvider
+          .setDropLocation(CustomLocation(name: name, coordinate: postion));
+      if (changemarker) {
+        BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(40, 40)),
+                "assets/icons/locationmarker.png")
+            .then((pickupicon) {
+          setState(() {
+            _dropDownDisable = false;
+            allMarker.add(
+              Marker(
+                alpha: 1,
+                icon: pickupicon,
+                markerId: MarkerId("drop_location"),
+                draggable: true,
+                onDragEnd: (newPickupLocation) {
+                  locationProvider.setDropLocation(CustomLocation(
+                      name: "Drop Location", coordinate: newPickupLocation));
+                },
+                onTap: () {},
+                position: locationProvider.getDropLocation().coordinate,
+                infoWindow: InfoWindow(title: "Drop location"),
+              ),
+            );
+          });
+        });
+      }
+    }
+
     BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(200, 100)),
             "assets/icons/currentLocation.png")
         .then((iconCurrentLocation) {
@@ -80,42 +121,12 @@ class _DropLocationState extends State<DropLocation> {
                     print(location[1]);
                     print(location[2]);
 
-                    locationProvider.setDropLocation(CustomLocation(
-                        coordinate: LatLng(
-                          double.parse(location[1]),
-                          double.parse(location[2]),
-                        ),
-                        name: location[0]));
-                    BitmapDescriptor.fromAssetImage(
-                            ImageConfiguration(size: Size(200, 100)),
-                            "assets/icons/locationmarker.png")
-                        .then((iconDrop) {
-                      setState(() {
-                        _dropDownDisable = false;
-                        allMarker.add(
-                          Marker(
-                            alpha: 1,
-                            icon: iconDrop,
-                            markerId: MarkerId("drop_location"),
-                            draggable: true,
-                            onDragEnd: (newPickupLocation) {
-                              setState(() {
-                                locationProvider.setPickupLocation(
-                                    CustomLocation(
-                                        name: locationProvider
-                                            .getPickupLocation()
-                                            .name,
-                                        coordinate: newPickupLocation));
-                              });
-                            },
-                            onTap: () {},
-                            position:
-                                locationProvider.getDropLocation().coordinate,
-                            infoWindow: InfoWindow(title: "drop location"),
-                          ),
-                        );
-                      });
-                    });
+                    LatLng dropLocation = LatLng(
+                      double.parse(location[1]),
+                      double.parse(location[2]),
+                    );
+                    _setDropLocation("Drop Location", dropLocation, true);
+                    _goToLocation(dropLocation);
                   }
                 });
               })
@@ -125,9 +136,11 @@ class _DropLocationState extends State<DropLocation> {
         children: [
           GoogleMap(
             polylines: _polyLine.toSet(),
-            onMapCreated: _onMapCreated,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
             myLocationEnabled: false,
-            markers: allMarker,
+            markers: allMarker.toSet(),
             initialCameraPosition: CameraPosition(
                 target: locationProvider.getCurrentLocation().coordinate,
                 zoom: 14.0),
